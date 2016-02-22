@@ -1,0 +1,13 @@
+<% idea = @idea if @idea %>
+<dt><strong>Members: </strong></dt>
+<dd><%= idea.memberships.count %></dd>
+<dt><strong>Joined Users: </strong></dt>
+<% idea.joined_users.each do |user| %>
+<dd><%= user.full_name %></dd>
+<% end %>
+<% membership = idea.membership_for(current_user) %>
+<% if membership %>
+  <%= link_to "Leave", idea_membership_path(idea, membership), method: :delete, class: "btn btn-danger"  %>
+<% else %>
+  <%= link_to "Join", idea_memberships_path(idea), method: :post, class: "btn btn-success" %>
+<% end %>

@@ -1,0 +1,10 @@
+<% @idea.comments.each do |comment| %>
+  Comment by: <%= comment.user_full_name %>
+  Comment: <%= comment.body %>
+  <% if can? :destroy, comment %>
+  <%= link_to "Delete", idea_comment_path(@idea, comment),
+                        method: :delete,
+                        data: {confirm: "Are you sure?"} %>
+  <% end %>
+  <hr>
+<% end %>

@@ -1,0 +1,8 @@
+rails g scaffold user email:index first_name last_name password_digest
+rails g scaffold idea title body:text user:references
+rails g resource like user:references idea:references
+rails g resource membership user:references idea:references
+rails g bootstrap:themed users
+rails g bootstrap:themed ideas
+rails g resource comment body:text user:references idea:references
+rails g 
