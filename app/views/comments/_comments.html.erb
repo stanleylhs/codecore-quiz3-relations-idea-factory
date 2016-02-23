@@ -1,11 +1,11 @@
 <% @idea.comments.each do |comment| %>
-  Comment by: <%= comment.user_full_name %>
-  Comment: <%= comment.body %>
-  <% if can? :destroy, comment %>
-    <%= link_to "Delete", idea_comment_path(@idea, comment),
-                          method: :delete,
-                          data: {confirm: "Are you sure?"},
-                          class: 'btn btn-danger btn-xs' %>
-  <% end %>
+  <div><dt>Comment by: </dt><dd><%= comment.user_full_name %></dd></div>
+  <div><dt>Comment:</dt> <dd><%= comment.body %></dd></div>
+  <div><dt></dt><dd><% if can? :destroy, comment %>
+        <%= link_to "Delete", idea_comment_path(@idea, comment),
+                              method: :delete,
+                              data: {confirm: "Are you sure?"},
+                              class: 'btn btn-danger btn-xs' %>
+      <% end %></dd></div>
   <hr>
 <% end %>
