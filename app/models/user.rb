@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
 
   has_many :comments, dependent: :destroy
 
+  has_many :pictures, dependent: :destroy
+
   validates :password, length: {minimum: 6}, on: :create
   validates :first_name, presence: true
   validates :last_name, presence: true

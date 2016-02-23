@@ -13,7 +13,7 @@
 class IdeasController < ApplicationController
   before_action :authenticate_user, except: [:index, :show]
   before_action :set_idea, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_user, only: [:edit, :destory, :update]
+  before_action :authorize_user, only: [:edit, :destroy, :update]
 
   # GET /ideas
   # GET /ideas.json
@@ -24,6 +24,7 @@ class IdeasController < ApplicationController
   # GET /ideas/1
   # GET /ideas/1.json
   def show
+    @pictures = @idea.pictures
     @comment = Comment.new
   end
 
@@ -44,6 +45,11 @@ class IdeasController < ApplicationController
 
     respond_to do |format|
       if @idea.save
+        if params[:images]
+          params[:images].each { |image|
+          @idea.pictures.create(image: image)
+        }
+      end
         format.html { redirect_to @idea, notice: 'Idea was successfully created.' }
         format.json { render :show, status: :created, location: @idea }
       else
@@ -58,6 +64,12 @@ class IdeasController < ApplicationController
   def update
     respond_to do |format|
       if @idea.update(idea_params)
+        if params[:images]
+          # The magic is here ;)
+          params[:images].each { |image|
+            @idea.pictures.create(image: image)
+          }
+        end
         format.html { redirect_to @idea, notice: 'Idea was successfully updated.' }
         format.json { render :show, status: :ok, location: @idea }
       else
@@ -89,9 +101,9 @@ class IdeasController < ApplicationController
     end
 
     def authorize_user
-    #if @question.user != current_user
-    unless can? :manage, @idea 
-      redirect_to root_path, alert: "access denied!"
+      #if @question.user != current_user
+      unless can? :manage, @idea 
+        redirect_to root_path, alert: "access denied!"
+      end
     end
-  end
 end

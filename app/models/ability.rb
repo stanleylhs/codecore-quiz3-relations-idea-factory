@@ -12,8 +12,17 @@ class Ability
     #   end
     #
 
+    # TODO: how to handle guest user?
+    # can :mangage, Membership do
+    #     user.id.present?
+    # end
+
     can :manage, Idea do |idea|
         idea.user == user
+    end
+
+    can :manage, Picture do |pic|
+        pic.user == user
     end
 
     can :manage, Comment do |comment|

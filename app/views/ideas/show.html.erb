@@ -16,15 +16,46 @@
   <%= render 'comments/comments' %>
 
 
+  <div class="row">
+    <ul class="thumbnails files">
+    <% unless @pictures.empty? %>
+    <% @pictures.each do |pic| %>
+      <li class="span3" id="picture_<%= pic.id %>">
+      <div class="thumbnail">
+        <%= image_tag pic.image.url %>
+        <div class="caption">
+        <% if can? :manage, pic %>
+          <p style="text-align: center;">
+          <%= link_to "Edit picture", picture_path(pic), class: 'btn btn-default btn-xs' %>
+          
+          <%=
+            link_to "Delete picture", pic,
+              :data => { :confirm => "Are you sure?" },
+              :method => :delete, class: 'btn btn-danger btn-xs'
+            %>
+
+          </p>
+        </div>
+        <% end %>
+      </div>
+      </li>
+    <% end %>
+    <% end %>
+    </ul>
+  </div>
+
+
 
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               ideas_path, :class => 'btn btn-default'  %>
-<%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_idea_path(@idea), :class => 'btn btn-default' %>
-<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              idea_path(@idea),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+<% if can? :manage, @idea %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                edit_idea_path(@idea), :class => 'btn btn-default' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                idea_path(@idea),
+                :method => 'delete',
+                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                :class => 'btn btn-danger' %>
+<% end %>

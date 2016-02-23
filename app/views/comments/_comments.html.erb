@@ -2,9 +2,10 @@
   Comment by: <%= comment.user_full_name %>
   Comment: <%= comment.body %>
   <% if can? :destroy, comment %>
-  <%= link_to "Delete", idea_comment_path(@idea, comment),
-                        method: :delete,
-                        data: {confirm: "Are you sure?"} %>
+    <%= link_to "Delete", idea_comment_path(@idea, comment),
+                          method: :delete,
+                          data: {confirm: "Are you sure?"},
+                          class: 'btn btn-danger btn-xs' %>
   <% end %>
   <hr>
 <% end %>

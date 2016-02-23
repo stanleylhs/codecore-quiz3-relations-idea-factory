@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :pictures
   resources :ideas do
     resources :likes, only: [:create, :destroy]
     resources :memberships, only: [:create, :destroy]

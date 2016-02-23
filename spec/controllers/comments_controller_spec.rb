@@ -91,7 +91,6 @@ describe "#create" do
 
   describe "#destroy" do
     context "with no signed in user" do
-      # TODO: make it fail
       it "redirects to the sign in page" do
         delete :destroy, id: comment.id, idea_id: idea.id
         expect(response).to redirect_to new_session_path
