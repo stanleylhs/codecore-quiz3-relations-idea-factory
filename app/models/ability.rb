@@ -24,6 +24,9 @@ class Ability
     can :manage, Picture do |pic|
         pic.user == user
     end
+    can :manage, User do |u|
+        u.id == user.id
+    end
 
     can :manage, Comment do |comment|
         comment.user == user || comment.idea.user == user

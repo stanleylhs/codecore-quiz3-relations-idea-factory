@@ -1,0 +1,27 @@
+<div class="row">
+  <ul class="thumbnails files">
+  <% unless @pictures.empty? %>
+  <% @pictures.each do |pic| %>
+    <li class="span3" id="picture_<%= pic.id %>">
+    <div class="thumbnail">
+      <%= image_tag pic.image.url %>
+      <div class="caption">
+      <% if can? :manage, pic %>
+        <p style="text-align: center;">
+        <%# link_to "Edit picture", picture_path(pic), class: 'btn btn-default btn-xs' %>
+
+        <%=
+          link_to "Delete picture", pic,
+            :data => { :confirm => "Are you sure?" },
+            :method => :delete, class: 'btn btn-danger btn-xs'
+          %>
+
+        </p>
+      </div>
+      <% end %>
+    </div>
+    </li>
+  <% end %>
+  <% end %>
+  </ul>
+</div>

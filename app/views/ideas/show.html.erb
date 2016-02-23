@@ -3,46 +3,17 @@
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
+  <h1><%= @idea.title %></h1>
+  <%= @idea.body %>
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
-  <dd><%= @idea.title %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:body) %>:</strong></dt>
-  <dd><%= @idea.body %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:user_id) %>:</strong></dt>
-  <dd><%= @idea.user.first_name %></dd>
+  <%= render 'pictures/pictures' %>
+  <dt><strong>By: </strong></dt>
+  <dd><%= link_to @idea.user_full_name, @idea.user %></dd>
   <%= render 'likes/likes' %>
   <%= render 'memberships/memberships' %>
   <%= render 'comments/form' %>
   <%= render 'comments/comments' %>
-
-
-  <div class="row">
-    <ul class="thumbnails files">
-    <% unless @pictures.empty? %>
-    <% @pictures.each do |pic| %>
-      <li class="span3" id="picture_<%= pic.id %>">
-      <div class="thumbnail">
-        <%= image_tag pic.image.url %>
-        <div class="caption">
-        <% if can? :manage, pic %>
-          <p style="text-align: center;">
-          <%= link_to "Edit picture", picture_path(pic), class: 'btn btn-default btn-xs' %>
-          
-          <%=
-            link_to "Delete picture", pic,
-              :data => { :confirm => "Are you sure?" },
-              :method => :delete, class: 'btn btn-danger btn-xs'
-            %>
-
-          </p>
-        </div>
-        <% end %>
-      </div>
-      </li>
-    <% end %>
-    <% end %>
-    </ul>
-  </div>
+  <br>
 
 
 

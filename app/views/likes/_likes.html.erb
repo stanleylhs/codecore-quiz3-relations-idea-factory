@@ -1,12 +1,12 @@
 <% idea = @idea if @idea %>
 <%# show_button = false  %>
 <% like = idea.like_for(current_user) %>
-<% if idea.user != current_user %>
+<dt><strong>Likes:</strong></dt>
+<dd><%= idea.likes.count %> <% if idea.user != current_user %>
   <% if like %>
     <%= link_to fa_icon("thumbs-up"), idea_like_path(idea, like), method: :delete, class: "like-fav-icon"  %>
   <% else %>
     <%= link_to fa_icon("thumbs-o-up"), idea_likes_path(idea), method: :post, class: "like-fav-icon" %>
   <% end %>
 <% end %>
-<dt><strong>Likes:</strong></dt>
-<dd><%= idea.likes.count %></dd>
+</dd>
